@@ -3,11 +3,11 @@ etl_project/
 ├── dags/                         # Airflow DAGs
 │   └── etl_pipeline.py           # Main DAG definition
 │
-├── data/                         # Raw CSV files
-│   ├── file1.csv
-│   ├── file2.csv
-│   ├── file3.csv
-│   └── file4.csv
+data/
+├── consumer_electronics_companies_2024.csv
+├── cybersecurity_companies_2024.csv
+├── semiconductor_companies_2024.csv
+└── tech_companies_2024.csv
 │
 ├── docker/                       # Docker-related files
 │   ├── Dockerfile                # Custom Docker image (if needed)

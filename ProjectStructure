@@ -1,0 +1,21 @@
+etl_project/
+│
+├── docker-compose.yml          # Orchestrates Airflow, Airbyte, and PostgreSQL
+├── .env                        # Store environment variables (DB creds, ports)
+├── README.md                   # Project overview and instructions
+│
+├── airflow/                    # Airflow DAGs and config
+│   ├── dags/
+│   │   └── etl_pipeline.py     # Your main ETL DAG
+│   └── airflow.cfg             # Optional: custom config
+│
+├── airbyte/                    # Airbyte config (optional if using UI)
+│   └── connections/            # JSON/YAML configs for sources/destinations
+│
+├── sql/                        # SQL scripts for transformations or schema
+│   └── transform_companies.sql
+│
+├── scripts/                    # Python scripts for custom ETL logic
+│   └── transform.py
+│
+└── data/                       # (Optional) Local data files or logs

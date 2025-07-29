@@ -1,21 +1,33 @@
 etl_project/
 │
-├── docker-compose.yml          # Orchestrates Airflow, Airbyte, and PostgreSQL
-├── .env                        # Store environment variables (DB creds, ports)
-├── README.md                   # Project overview and instructions
+├── dags/                         # Airflow DAGs
+│   └── etl_pipeline.py           # Main DAG definition
 │
-├── airflow/                    # Airflow DAGs and config
-│   ├── dags/
-│   │   └── etl_pipeline.py     # Your main ETL DAG
-│   └── airflow.cfg             # Optional: custom config
+├── data/                         # Raw CSV files
+│   ├── file1.csv
+│   ├── file2.csv
+│   ├── file3.csv
+│   └── file4.csv
 │
-├── airbyte/                    # Airbyte config (optional if using UI)
-│   └── connections/            # JSON/YAML configs for sources/destinations
+├── docker/                       # Docker-related files
+│   ├── Dockerfile                # Custom Docker image (if needed)
+│   └── docker-compose.yml        # Services: Airflow, Airbyte, DB
 │
-├── sql/                        # SQL scripts for transformations or schema
-│   └── transform_companies.sql
+├── airbyte/                      # Airbyte configuration
+│   ├── connections/              # JSON/YAML configs for sources/destinations
+│   └── setup_airbyte.py          # Script to configure Airbyte via API
 │
-├── scripts/                    # Python scripts for custom ETL logic
-│   └── transform.py
+├── scripts/                      # Python scripts for ETL logic
+│   ├── extract.py
+│   ├── transform.py
+│   └── load.py
 │
-└── data/                       # (Optional) Local data files or logs
+├── sql/                          # SQL scripts for schema and transformations
+│   ├── create_tables.sql
+│   └── transform_queries.sql
+│
+├── logs/                         # Airflow logs (auto-generated)
+│
+├── requirements.txt              # Python dependencies
+├── README.md                     # Project overview and instructions
+└── .env                          # Environment variables (DB creds, etc.)

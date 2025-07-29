@@ -1,33 +1,14 @@
 etl_project/
-│
-├── dags/                         # Airflow DAGs
-│   └── etl_pipeline.py           # Main DAG definition
-│
-data/
-├── consumer_electronics_companies_2024.csv
-├── cybersecurity_companies_2024.csv
-├── semiconductor_companies_2024.csv
-└── tech_companies_2024.csv
-│
-├── docker/                       # Docker-related files
-│   ├── Dockerfile                # Custom Docker image (if needed)
-│   └── docker-compose.yml        # Services: Airflow, Airbyte, DB
-│
-├── airbyte/                      # Airbyte configuration
-│   ├── connections/              # JSON/YAML configs for sources/destinations
-│   └── setup_airbyte.py          # Script to configure Airbyte via API
-│
-├── scripts/                      # Python scripts for ETL logic
+├── DAGs/
+│   └── etl_pipeline.py
+├── scripts/
 │   ├── extract.py
 │   ├── transform.py
 │   └── load.py
-│
-├── sql/                          # SQL scripts for schema and transformations
-│   ├── create_tables.sql
-│   └── transform_queries.sql
-│
-├── logs/                         # Airflow logs (auto-generated)
-│
-├── requirements.txt              # Python dependencies
-├── README.md                     # Project overview and instructions
-└── .env                          # Environment variables (DB creds, etc.)
+├── data/
+│   └── *.csv
+├── config/
+│   └── db_config.yaml
+├── sql/
+│   └── create_tables.sql (for SQL proficiency demonstration, not required though)
+├── docker-compose.yaml

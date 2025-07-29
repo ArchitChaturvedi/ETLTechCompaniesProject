@@ -1,0 +1,36 @@
+import pandas as pd
+import os
+from sqlalchemy import create_engine
+import yaml
+
+def load_data(file_name: str, **kwargs):
+    """
+    Loads the transformed data into a Neon PostgreSQL database.
+
+    Args:
+        file_name (str): Name of the CSV file being processed.
+    """
+    try:
+        # Load DB config
+        config_path = os.path.join('/opt/airflow/config', 'db_config.yaml')
+        with open(config_path, 'r') as file:
+            config = yaml.safe_load(file)
+
+        db_url = config['neon']['connection_string']
+        engine = create_engine(db_url)
+
+        # Load the transformed data
+        data_path = os.path.join('/opt/airflow/data', file_name)
+        df = pd.read_csv(data_path)
+
+        # Generate table name from file name
+        table_name = os.path.splitext(file_name)[0]
+
+        # Load into Neon DB
+        df.to_sql(table_name, engine, if_exists='replace', index=False)
+
+        print(f"[LOAD] Successfully loaded data into table: {table_name}")
+
+    except Exception as e:
+        print(f"[LOAD] Failed to load data from {file_name} into Neon DB: {e}")
+        raise

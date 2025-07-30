@@ -26,7 +26,7 @@ The goal here is to showcase data ingestion, transformation, and orchestration u
 - **PostgreSQL (Neon)** – cloud-hosted relational database
 - **Docker** – containerization of services
 - **SQL** – data modeling and querying
-- **SQL** – ETL scripting (alternative version to demonstrate Spark skills)
+- **Spark** – ETL scripting (alternative version to demonstrate Spark skills)
 ---
 
 ## Project Structure:

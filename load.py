@@ -1,36 +1,42 @@
 import pandas as pd
 import os
-from sqlalchemy import create_engine
-import yaml
+import logging
 
-def load_data(file_name: str, **kwargs):
+logger = logging.getLogger(__name__)
+
+def transform_data(file_name: str, **kwargs):
     """
-    Loads the transformed data into a Neon PostgreSQL database.
+    Transforms the extracted data by cleaning and standardizing it.
 
     Args:
         file_name (str): Name of the CSV file being processed.
+
+    Returns:
+        pd.DataFrame: Transformed DataFrame ready for loading.
     """
+    data_path = os.path.join('/opt/airflow/data', file_name)
+
     try:
-        # Load DB config
-        config_path = os.path.join('/opt/airflow/config', 'db_config.yaml')
-        with open(config_path, 'r') as file:
-            config = yaml.safe_load(file)
+        # Load the raw data
+        df = pd.read_csv(data_path, encoding='utf-8')
 
-        db_url = config['neon']['connection_string']
-        engine = create_engine(db_url)
+        # Example transformations:
+        # 1. Standardize column names
+        df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
 
-        # Load the transformed data
-        data_path = os.path.join('/opt/airflow/data', file_name)
-        df = pd.read_csv(data_path)
+        # 2. Drop duplicates
+        df.drop_duplicates(inplace=True)
 
-        # Generate table name from file name
-        table_name = os.path.splitext(file_name)[0]
+        # 3. Handle missing values (example: fill with 'Unknown' or drop)
+        df.fillna("Unknown", inplace=True)
 
-        # Load into Neon DB
-        df.to_sql(table_name, engine, if_exists='replace', index=False)
+        # 4. Add metadata
+        df['source_file'] = file_name
+        df['ingestion_timestamp'] = pd.Timestamp.now()
 
-        print(f"[LOAD] Successfully loaded data into table: {table_name}")
+        logger.info(f"[TRANSFORM] Successfully transformed data from {file_name}")
+        return df
 
     except Exception as e:
-        print(f"[LOAD] Failed to load data from {file_name} into Neon DB: {e}")
+        logger.error(f"[TRANSFORM] Failed to transform data from {file_name}: {e}")
         raise

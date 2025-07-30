@@ -12,3 +12,4 @@ etl_project/
 ├── sql/
 │   └── create_tables.sql (for SQL proficiency demonstration, not required though)
 ├── docker-compose.yaml
+├── Dockerfile

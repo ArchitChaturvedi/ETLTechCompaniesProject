@@ -1,42 +1,41 @@
 import pandas as pd
 import os
+from sqlalchemy import create_engine
+import yaml
 import logging
 
 logger = logging.getLogger(__name__)
 
-def transform_data(file_name: str, **kwargs):
+logging.basicConfig(level=logging.INFO)
+
+def load_data(file_name: str, **kwargs):
     """
-    Transforms the extracted data by cleaning and standardizing it.
+    Loads the transformed data into a Neon PostgreSQL database.
 
     Args:
         file_name (str): Name of the CSV file being processed.
-
-    Returns:
-        pd.DataFrame: Transformed DataFrame ready for loading.
     """
-    data_path = os.path.join('/opt/airflow/data', file_name)
-
     try:
-        # Load the raw data
-        df = pd.read_csv(data_path, encoding='utf-8')
+        # Load DB config
+        config_path = os.path.join('/opt/airflow/config', 'db_config.yaml')
+        with open(config_path, 'r') as file:
+            config = yaml.safe_load(file)
 
-        # Example transformations:
-        # 1. Standardize column names
-        df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
+        db_url = config['neon']['connection_string']
+        engine = create_engine(db_url)
 
-        # 2. Drop duplicates
-        df.drop_duplicates(inplace=True)
+        # Load the transformed data
+        data_path = os.path.join('/opt/airflow/data', file_name)
+        df = pd.read_csv(data_path)
 
-        # 3. Handle missing values (example: fill with 'Unknown' or drop)
-        df.fillna("Unknown", inplace=True)
+        # Generate table name from file name
+        table_name = os.path.splitext(file_name)[0]
 
-        # 4. Add metadata
-        df['source_file'] = file_name
-        df['ingestion_timestamp'] = pd.Timestamp.now()
+        # Load into Neon DB
+        df.to_sql(table_name, engine, if_exists='replace', index=False, method='multi')
 
-        logger.info(f"[TRANSFORM] Successfully transformed data from {file_name}")
-        return df
+        logger.info(f"[LOAD] Successfully loaded data into table: {table_name}")
 
     except Exception as e:
-        logger.error(f"[TRANSFORM] Failed to transform data from {file_name}: {e}")
+        logger.error(f"[LOAD] Failed to load data from {file_name} into Neon DB: {e}")
         raise

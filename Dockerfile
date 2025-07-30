@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.1-python3.10
+FROM python3.10
 
 # Set working directory
 WORKDIR /app

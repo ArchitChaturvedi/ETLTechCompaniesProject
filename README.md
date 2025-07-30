@@ -30,22 +30,5 @@ The goal here is to showcase data ingestion, transformation, and orchestration u
 ---
 
 ## Project Structure:
-etl_project/
-├── DAGs/
-│   └── etl_pipeline.py
-├── scripts/
-│   ├── extract.py
-│   ├── transform.py
-│   └── load.py
-├── data/
-│   └── *.csv
-├── config/
-│   └── db_config.yaml
-├── sql/
-│   └── create_tables.sql           (for SQL proficiency demonstration, not required though)
-├── docker-compose.yaml
-├── Dockerfile
-├── SparkScripts/       (for demonstrating Spark proficiency, not used for actual pipeline)
-│   ├── extract_spark.py
-│   ├── transform_spark.py
-│   └── load_spark.py
+<img width="922" height="577" alt="image" src="https://github.com/user-attachments/assets/5d0288dc-64fa-4d40-acea-1456dfd78151" />
+

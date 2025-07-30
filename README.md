@@ -21,7 +21,7 @@ The goal here is to showcase data ingestion, transformation, and orchestration u
 ## Tools/Skills Used
 
 - **Python** – scripting and ETL Pipeline development
-- **Python** – ETL scripting - main version used in project
+- **Pandas** – ETL scripting - main version used in project
 - **Airflow** – workflow orchestration and DAGs
 - **PostgreSQL (Neon)** – cloud-hosted relational database
 - **Docker** – containerization of services

@@ -28,3 +28,24 @@ The goal here is to showcase data ingestion, transformation, and orchestration u
 - **SQL** – data modeling and querying
 - **SQL** – ETL scripting (alternative version to demonstrate Spark skills)
 ---
+
+## Project Structure:
+etl_project/
+├── DAGs/
+│   └── etl_pipeline.py
+├── scripts/
+│   ├── extract.py
+│   ├── transform.py
+│   └── load.py
+├── data/
+│   └── *.csv
+├── config/
+│   └── db_config.yaml
+├── sql/
+│   └── create_tables.sql           (for SQL proficiency demonstration, not required though)
+├── docker-compose.yaml
+├── Dockerfile
+├── SparkScripts/       (for demonstrating Spark proficiency, not used for actual pipeline)
+│   ├── extract_spark.py
+│   ├── transform_spark.py
+│   └── load_spark.py

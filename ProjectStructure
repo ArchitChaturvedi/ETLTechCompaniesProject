@@ -10,6 +10,10 @@ etl_project/
 ├── config/
 │   └── db_config.yaml
 ├── sql/
-│   └── create_tables.sql (for SQL proficiency demonstration, not required though)
+│   └── create_tables.sql           (for SQL proficiency demonstration, not required though)
 ├── docker-compose.yaml
 ├── Dockerfile
+├── SparkScripts/       (for demonstrating Spark proficiency, not used for actual pipeline)
+│   ├── extract_spark.py
+│   ├── transform_spark.py
+│   └── load_spark.py

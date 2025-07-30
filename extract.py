@@ -1,5 +1,8 @@
 import pandas as pd
+import logging 
 import os
+
+logger = logging.getLogger(__name__)
 
 def extract_data(file_name: str, **kwargs):
     """
@@ -15,8 +18,8 @@ def extract_data(file_name: str, **kwargs):
 
     try:
         df = pd.read_csv(data_path)
-        print(f"[EXTRACT] Successfully extracted data from {file_name}")
+        logger.info(f"[EXTRACT] Successfully extracted data from {file_name}")
         return df
     except Exception as e:
-        print(f"[EXTRACT] Failed to extract data from {file_name}: {e}")
+        logger.error(f"[EXTRACT] Failed to extract data from {file_name}: {e}")
         raise

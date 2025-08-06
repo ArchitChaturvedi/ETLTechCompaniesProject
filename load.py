@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.INFO)
 
-def load_data(file_name: str, **kwargs):
-    
+def load_to_postgres(file_name: str, **kwargs):
+   
     try:
         config_path = os.path.join('/opt/airflow/config', 'db_config.yaml')
         with open(config_path, 'r') as file:

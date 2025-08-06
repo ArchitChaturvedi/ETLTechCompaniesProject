@@ -4,7 +4,7 @@ import os
 
 logger = logging.getLogger(__name__)
 
-def extract_data(file_name: str, **kwargs):
+def extract_csv(file_name: str, **kwargs):
     
     data_path = os.path.join('/opt/airflow/data', file_name)
 
